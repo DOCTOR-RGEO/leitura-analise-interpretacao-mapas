@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laboratório de Leitura, Análise e Interpretação de Mapas Temáticos</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <style>
+    .leaflet-container {
+      font-family: inherit;
+    }
+    #caseMap {
+      min-height: 320px;
+      height: 320px;
+      width: 100%;
+      border-radius: 0.75rem;
+      z-index: 10;
+    }
+    @media (min-width: 640px) {
+      #caseMap {
+        min-height: 380px;
+        height: 380px;
+      }
+    }
+    .custom-legend {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid #334155;
+      padding: 8px 12px;
+      border-radius: 8px;
+      color: #f1f5f9;
+      font-size: 11px;
+      line-height: 18px;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col items-center justify-between p-3 sm:p-6 font-sans">
+
+  <!-- Cabeçalho Institucional -->
+  <header class="w-full max-w-3xl text-center my-2">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-sky-950/80 border border-sky-500/50 rounded-full text-sky-300 text-xs sm:text-sm font-medium mb-2 shadow-sm text-left sm:text-center">
+      <i class="fa-solid fa-earth-americas text-sky-400 shrink-0"></i>
+      <span>Elaboração Prof. Dr. Ronaldo Missura &mdash; Laboratório de Representação da Terra &mdash; DGE / UFS</span>
+    </div>
+    <h1 class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-indigo-300">
+      Decodificação & Raciocínio Geográfico
+    </h1>
+    <p class="text-slate-400 text-xs sm:text-sm mt-1">
+      Trilha prática: da decodificação gráfica à síntese interpretativa do espaço.
+    </p>
+  </header>
+
+  <!-- Container Principal -->
+  <main class="w-full max-w-3xl bg-slate-800/90 border border-slate-700/80 rounded-2xl p-4 sm:p-6 shadow-2xl backdrop-blur-sm relative">
+
+    <!-- Navegação de Modo: Tutorial Teórico vs Casos Práticos -->
+    <div class="flex items-center justify-center gap-2 mb-5 border-b border-slate-700 pb-3">
+      <button 
+        id="tabTutorialBtn" 
+        onclick="switchMode('tutorial')" 
+        class="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all bg-sky-600 text-white shadow-md flex items-center gap-2">
+        <i class="fa-solid fa-graduation-cap"></i> 1. Trilha Conceitual
+      </button>
+      <button 
+        id="tabPracticeBtn" 
+        onclick="switchMode('practice')" 
+        class="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-700 flex items-center gap-2">
+        <i class="fa-solid fa-map-location-dot"></i> 2. Laboratório Prático (Casos)
+      </button>
+    </div>
+
+    <!-- SEÇÃO 1: TUTORIAL TEÓRICO E METODOLÓGICO -->
+    <div id="tutorialSection" class="space-y-4">
+      
+      <!-- Introdução Conceitual -->
+      <div class="bg-slate-950/80 border border-slate-750 p-4 rounded-xl">
+        <h2 class="text-base font-bold text-sky-300 flex items-center gap-2">
+          <i class="fa-solid fa-book-open"></i> O que é ler, analisar e interpretar um mapa?
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+          Ler um mapa é equivalente a ler um texto, substituindo a palavra escrita por <strong>signos gráficos, cores, proporções e posições espaciais</strong>. Essa operação se estrutura em três níveis sucessivos e interdependentes:
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
+          <div class="bg-slate-900 border border-sky-500/30 p-3 rounded-lg">
+            <span class="text-sky-400 font-extrabold text-xs uppercase tracking-wider block mb-1">
+              <i class="fa-solid fa-eye"></i> 1. Leitura
+            </span>
+            <p class="text-xs text-slate-300">
+              Decodificação dos elementos visuais elementares: título, legenda, escala matemática, orientação e sistema de projeção.
+            </p>
+          </div>
+
+          <div class="bg-slate-900 border border-teal-500/30 p-3 rounded-lg">
+            <span class="text-teal-400 font-extrabold text-xs uppercase tracking-wider block mb-1">
+              <i class="fa-solid fa-chart-pie"></i> 2. Análise
+            </span>
+            <p class="text-xs text-slate-300">
+              Identificação de padrões geométricos, zonas de concentração, dispersão, eixos de fluxo e contraste regional.
+            </p>
+          </div>
+
+          <div class="bg-slate-900 border border-indigo-500/30 p-3 rounded-lg">
+            <span class="text-indigo-400 font-extrabold text-xs uppercase tracking-wider block mb-1">
+              <i class="fa-solid fa-brain"></i> 3. Interpretação
+            </span>
+            <p class="text-xs text-slate-300">
+              Explicação dos <em>porquês</em>: correlação dos dados espaciais com o contexto histórico, ambiental e socioeconômico.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- O Método PQE -->
+      <div class="bg-gradient-to-r from-slate-950 to-slate-900 border border-amber-500/30 p-4 rounded-xl">
+        <h3 class="text-xs sm:text-sm font-bold text-amber-300 uppercase tracking-wide flex items-center gap-2">
+          <i class="fa-solid fa-compass-drafting"></i> Instrumento Metodológico: O Método PQE
+        </h3>
+        <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+          Para realizar uma análise rigorosa sem cometer conclusões precipitadas, utilize o roteiro sequencial em três passos:
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mt-3 text-xs">
+          <div class="p-2.5 bg-slate-900/90 rounded border border-slate-700">
+            <b class="text-amber-400 text-sm block">P &mdash; Padrão</b>
+            <span class="text-slate-300">Qual é a regra geral de distribuição visualizada no mapa? Há concentração em um vetor geográfico específico?</span>
+          </div>
+          <div class="p-2.5 bg-slate-900/90 rounded border border-slate-700">
+            <b class="text-amber-400 text-sm block">Q &mdash; Quantificar</b>
+            <span class="text-slate-300">Quais valores, classes ou percentuais métricos definem essa distribuição? Não basta dizer "muito" ou "pouco".</span>
+          </div>
+          <div class="p-2.5 bg-slate-900/90 rounded border border-slate-700">
+            <b class="text-amber-400 text-sm block">E &mdash; Exceções</b>
+            <span class="text-slate-300">Existe alguma localidade ou feição que contraria a regra geral (uma anomalia ou mancha divergente)?</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checklist Cartográfico Interativo -->
+      <div class="bg-slate-950/70 border border-slate-700 p-4 rounded-xl">
+        <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wide mb-3 flex items-center gap-2">
+          <i class="fa-solid fa-list-check text-sky-400"></i> Checklist do Leitor de Mapas
+        </h3>
+
+        <div class="space-y-2 text-xs">
+          <label class="flex items-start gap-2.5 p-2 bg-slate-900/60 rounded border border-slate-800 hover:border-slate-700 cursor-pointer">
+            <input type="checkbox" class="mt-0.5 rounded text-sky-500 focus:ring-0 bg-slate-950 border-slate-600" />
+            <span><strong>Título e Data:</strong> Identifiquei claramente o tema, o recorte geográfico e o ano dos dados levantados?</span>
+          </label>
+          <label class="flex items-start gap-2.5 p-2 bg-slate-900/60 rounded border border-slate-800 hover:border-slate-700 cursor-pointer">
+            <input type="checkbox" class="mt-0.5 rounded text-sky-500 focus:ring-0 bg-slate-950 border-slate-600" />
+            <span><strong>Variáveis Visuais da Legenda:</strong> O mapa usa ordenação por gradação de cor (coroplético), símbolos proporcionais ou feições lineares?</span>
+          </label>
+          <label class="flex items-start gap-2.5 p-2 bg-slate-900/60 rounded border border-slate-800 hover:border-slate-700 cursor-pointer">
+            <input type="checkbox" class="mt-0.5 rounded text-sky-500 focus:ring-0 bg-slate-950 border-slate-600" />
+            <span><strong>Escala e Proporção:</strong> O nível de detalhe é local, regional, nacional ou planetário?</span>
+          </label>
+          <label class="flex items-start gap-2.5 p-2 bg-slate-900/60 rounded border border-slate-800 hover:border-slate-700 cursor-pointer">
+            <input type="checkbox" class="mt-0.5 rounded text-sky-500 focus:ring-0 bg-slate-950 border-slate-600" />
+            <span><strong>Causalidade Espacial:</strong> Consigo explicar as causas físicas, ambientais ou políticas que condicionaram a distribuição vista?</span>
+          </label>
+        </div>
+
+        <button 
+          onclick="switchMode('practice')" 
+          class="w-full mt-4 py-2.5 px-4 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs sm:text-sm rounded-lg transition shadow-md shadow-sky-500/20 flex items-center justify-center gap-2">
+          Ir para os Casos Práticos de Estudo <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- SEÇÃO 2: LABORATÓRIO PRÁTICO (CASOS DE ESTUDO GUIADOS) -->
+    <div id="practiceSection" class="hidden space-y-4">
+      
+      <!-- Cabeçalho do Caso e Seletor -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-950/80 border border-slate-700 p-3 rounded-xl">
+        <div>
+          <div class="text-[10px] text-sky-400 font-bold uppercase tracking-wider">Módulo Prático</div>
+          <h2 id="caseTitle" class="text-sm sm:text-base font-bold text-white">Carregando caso...</h2>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-400 font-medium">Caso:</span>
+          <select id="caseSelector" onchange="changeCase(parseInt(this.value))" class="bg-slate-900 border border-slate-600 text-xs rounded-lg p-1.5 text-slate-200 focus:ring-1 focus:ring-sky-400">
+            <option value="0">Caso 1: Relevo vs. Densidade Urbana</option>
+            <option value="1">Caso 2: Fronteira Agrícola e Eixos Viários</option>
+            <option value="2">Caso 3: Vulnerabilidade e Transição Demográfica</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Mapa Temático Interativo -->
+      <div class="relative border border-slate-700 rounded-xl overflow-hidden shadow-inner">
+        <div id="caseMap"></div>
+      </div>
+
+      <!-- Barra das 3 Fases Cognitivas -->
+      <div class="grid grid-cols-3 gap-1.5 bg-slate-950 p-1.5 rounded-lg border border-slate-700 text-center text-xs font-bold">
+        <div id="stepTab1" class="py-1.5 rounded bg-sky-600 text-white transition-all">1. Leitura</div>
+        <div id="stepTab2" class="py-1.5 rounded bg-slate-900 text-slate-400 transition-all">2. Análise (PQE)</div>
+        <div id="stepTab3" class="py-1.5 rounded bg-slate-900 text-slate-400 transition-all">3. Interpretação</div>
+      </div>
+
+      <!-- Painel de Desafio da Fase Atual -->
+      <div class="bg-slate-950/70 border border-slate-700 p-4 rounded-xl space-y-3">
+        
+        <!-- Enunciado e Orientação Cartográfica -->
+        <div>
+          <span id="stepBadge" class="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-700/50">
+            Etapa 1: Decodificação Gráfica
+          </span>
+          <h3 id="stepQuestionTitle" class="text-sm font-bold text-white mt-1.5">--</h3>
+          <p id="stepContext" class="text-xs text-slate-300 mt-1 leading-relaxed">--</p>
+        </div>
+
+        <!-- Opções de Resposta -->
+        <div id="optionsContainer" class="space-y-2 pt-1">
+          <!-- Gerado dinamicamente -->
+        </div>
+
+        <!-- Feedback de Validação -->
+        <div id="stepFeedback" class="hidden p-3 rounded-lg text-xs leading-relaxed border space-y-1"></div>
+
+        <!-- Botões de Controle -->
+        <div class="flex items-center justify-between pt-2">
+          <button 
+            id="btnConfirmStep" 
+            onclick="validateCurrentStep()" 
+            class="w-full py-2.5 px-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm rounded-lg transition shadow-md shadow-emerald-500/20 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-check"></i> Validar Etapa Cartográfica
+          </button>
+
+          <button 
+            id="btnNextStep" 
+            onclick="nextStep()" 
+            class="w-full py-2.5 px-4 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs sm:text-sm rounded-lg transition shadow-md shadow-sky-500/20 hidden items-center justify-center gap-2">
+            Avançar no Raciocínio Geográfico <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Rodapé Institucional -->
+  <footer class="w-full max-w-3xl text-center my-3 text-[11px] text-slate-400 space-y-1">
+    <div>Laboratório de Representação da Terra &bull; Departamento de Geografia da UFS</div>
+    <div class="text-slate-500">Recurso de apoio pedagógico ao ensino de Cartografia Temática e Análise Espacial.</div>
+  </footer>
+
+  <script>
+    // Base de Casos Didáticos Estruturados estritamente em Leitura, Análise (PQE) e Interpretação
+    const casesData = [
+      {
+        id: 0,
+        title: "Caso 1: Relevo e Densidade Demográfica no Leste de Sergipe",
+        center: [-10.85, -37.15],
+        zoom: 9,
+        legendHtml: `
+          <b>Densidade Urbana (hab/km²)</b><br>
+          <span style="display:inline-block;width:12px;height:12px;background:#991b1b;margin-right:4px;"></span> &gt; 1.500 (Alta)<br>
+          <span style="display:inline-block;width:12px;height:12px;background:#f59e0b;margin-right:4px;"></span> 100 - 500 (Média)<br>
+          <span style="display:inline-block;width:12px;height:12px;background:#10b981;margin-right:4px;"></span> &lt; 50 (Baixa / Vazio)<br>
+          <div style="border-top:1px solid #475569;margin:4px 0;"></div>
+          <span style="display:inline-block;width:14px;height:3px;background:#38bdf8;margin-right:4px;"></span> Eixo Hidrográfico / Litoral
+        `,
+        layers: [
+          {
+            type: "polygon",
+            coords: [
+              [-10.85, -37.12], [-10.88, -37.05], [-11.02, -37.08], [-10.98, -37.18]
+            ],
+            color: "#991b1b",
+            fillOpacity: 0.7,
+            popup: "<b>Grande Aracaju / Litoral:</b> Adensamento &gt; 2.500 hab/km²"
+          },
+          {
+            type: "polygon",
+            coords: [
+              [-10.60, -37.35], [-10.75, -37.30], [-10.80, -37.50], [-10.65, -37.55]
+            ],
+            color: "#f59e0b",
+            fillOpacity: 0.6,
+            popup: "<b>Agreste Central (Itabaiana):</b> 150 - 300 hab/km²"
+          },
+          {
+            type: "polygon",
+            coords: [
+              [-9.75, -37.60], [-9.90, -37.35], [-10.15, -37.80], [-9.95, -38.00]
+            ],
+            color: "#10b981",
+            fillOpacity: 0.5,
+            popup: "<b>Alto Sertão / Depressão do São Francisco:</b> &lt; 25 hab/km² (Vazio relativo)"
+          },
+          {
+            type: "polyline",
+            coords: [
+              [-9.60, -37.80], [-10.00, -37.00], [-10.50, -36.50]
+            ],
+            color: "#38bdf8",
+            weight: 3,
+            popup: "<b>Baixo Rio São Francisco:</b> Vetor histórico de drenagem e integração"
+          }
+        ],
+        steps: [
+          {
+            phase: 1,
+            phaseName: "1. Leitura (Decodificação Gráfica)",
+            title: "Identificação da Variável Visual e Natureza da Representação",
+            context: "Examine a legenda do mapa temático acima. Que tipo de mapa temático está sendo empregado e qual variável gráfica traduz a intensidade do fenômeno?",
+            options: [
+              { text: "Mapa de Fluxos Dinâmicos, utilizando vetores direcionais proporcionais à velocidade.", correct: false },
+              { text: "Mapa Coroplético, utilizando a variável visual de valor/tonalidade (gradação de cor) para representar classes quantitativas ordenadas.", correct: true },
+              { text: "Mapa Isarítmico, baseado estritamente em curvas de nível altimétricas contínuas.", correct: false },
+              { text: "Cartograma Anamórfico, onde a área geográfica de cada município é deformada proporcionalmente ao PIB.", correct: false }
+            ],
+            explanation: "O mapa utiliza áreas zonais coloridas segundo uma hierarquia de valor/intensidade (mapa coroplético), comunicando intervalos quantitativos ordenados de habitantes por quilômetro quadrado."
+          },
+          {
+            phase: 2,
+            phaseName: "2. Análise (Método PQE: Padrão, Quantificar, Exceção)",
+            title: "Estruturação dos Padrões e Disparidades Regionais",
+            context: "Aplicando o método PQE (Padrão, Quantificar e Exceções), qual alternativa sintetiza com precisão os dados espaciais?",
+            options: [
+              { text: "O fenômeno é perfeitamente homogêneo e distribuído de forma equitativa em toda a malha estadual.", correct: false },
+              { text: "Padrão: forte concentração no litoral/leste; Quantificar: manchas vermelhas superando 1.500 hab/km² versus o interior com &lt;50 hab/km²; Exceção: núcleos de média densidade (amarelos) no Agreste Central (ex: Itabaiana).", correct: true },
+              { text: "Padrão: maior ocupação demográfica na porção semiárida do Alto Sertão Sergipano.", correct: false },
+              { text: "Exceção: o litoral sergipano constitui a principal área desabitada do estado.", correct: false }
+            ],
+            explanation: "O método PQE isola: Padrão (orientação leste-oeste de decrescimento demográfico), Quantificação (>1.500 no litoral vs <50 hab/km² no sertão) e a Exceção/Anomalia do Agreste Central com alta polarização mercantil."
+          },
+          {
+            phase: 3,
+            phaseName: "3. Interpretação (Causalidade e Síntese Geográfica)",
+            title: "Explicação dos 'Porquês' e Síntese Real",
+            context: "Por que essa configuração espacial se consolidou historicamente e ambientalmente em Sergipe?",
+            options: [
+              { text: "A concentração litorânea decorre do processo histórico de ocupação mercantil e urbanização litorânea aliada à disponibilidade hídrica da Zona da Mata, enquanto o interior enfrentou limitações de semiaridez e dispersão pecuária extensiva.", correct: true },
+              { text: "A densidade litorânea decorre exclusivamente da proibição governamental de povoamento no interior do estado.", correct: false },
+              { text: "A ocupação foi homogênea e recente, sem qualquer relação com a geomorfologia ou com ciclos econômicos históricos.", correct: false },
+              { text: "O semiárido apresenta vazios porque sua geologia é imprópria para qualquer tipo de vida humana.", correct: false }
+            ],
+            explanation: "A interpretação fecha o ciclo do raciocínio geográfico ao articular fatores físicos (clima subúmido vs semiárido) e históricos (colonização litorânea e infraestrutura portuária) para explicar as manchas do mapa."
+          }
+        ]
+      },
+      {
+        id: 1,
+        title: "Caso 2: Fronteira Agrícola e Eixos de Transporte na Amazônia",
+        center: [-8.5, -55.0],
+        zoom: 6,
+        legendHtml: `
+          <b>Frente de Expansão & Supressão Vegetal</b><br>
+          <span style="display:inline-block;width:14px;height:4px;background:#ef4444;margin-right:4px;"></span> Rodovias Federais de Escoamento<br>
+          <span style="display:inline-block;width:12px;height:12px;background:#dc2626;margin-right:4px;"></span> Focos Intensos de Desmatamento<br>
+          <span style="display:inline-block;width:12px;height:12px;background:#059669;margin-right:4px;"></span> Floresta Conservada / Terras Indígenas
+        `,
+        layers: [
+          {
+            type: "polyline",
+            coords: [
+              [-3.0, -55.0], [-7.0, -55.3], [-11.0, -55.5]
+            ],
+            color: "#ef4444",
+            weight: 4,
+            popup: "<b>Rodovia BR-163 (Cuiabá - Santarém):</b> Principal eixo logístico do agronegócio"
+          },
+          {
+            type: "polygon",
+            coords: [
+              [-6.5, -56.0], [-7.5, -54.5], [-9.5, -54.8], [-9.0, -56.5]
+            ],
+            color: "#dc2626",
+            fillOpacity: 0.6,
+            popup: "<b>Polígono Crítico de Supressão:</b> Efeito 'espinha de peixe' ao longo da rodovia"
+          },
+          {
+            type: "polygon",
+            coords: [
+              [-4.0, -58.0], [-4.5, -56.0], [-6.0, -57.0], [-5.5, -58.5]
+            ],
+            color: "#059669",
+            fillOpacity: 0.5,
+            popup: "<b>Mosaico de Unidades de Conservação e TIs:</b> Barreira de contenção territorial"
+          }
+        ],
+        steps: [
+          {
+            phase: 1,
+            phaseName: "1. Leitura (Decodificação Gráfica)",
+            title: "Elementos Lineares e Zonas de Sobreposição",
+            context: "Ao ler os símbolos do mapa, o que a linha vermelha contínua e as áreas adjacentes indicam?",
+            options: [
+              { text: "A linha representa uma fronteira internacional e as manchas representam zonas oceânicas.", correct: false },
+              { text: "A linha representa um eixo viário longitudinal (rodovia de transporte) e a mancha vermelha representa áreas antropizadas contíguas à estrada.", correct: true },
+              { text: "A linha indica a rotação de placas tectônicas e as cores denotam atividade vulcânica ativa.", correct: false },
+              { text: "O mapa representa uma bacia puramente hidrográfica sem qualquer intervenção humana.", correct: false }
+            ],
+            explanation: "A leitura primária decodifica feições lineares de circulação (eixo rodoviário) e manchas poligonais associadas à pressão de borda."
+          },
+          {
+            phase: 2,
+            phaseName: "2. Análise (Método PQE)",
+            title: "Padrão em 'Espinha de Peixe' e Conexões Espaciais",
+            context: "Qual padrão espacial (P) e exceção (E) são revelados pelo cruzamento dos eixos de fluxo com o desmatamento?",
+            options: [
+              { text: "Padrão: a degradação se concentra nos primeiros 50 km laterais ao eixo da rodovia ('espinha de peixe'); Exceção: a interrupção brusca do desmatamento onde existem Terras Indígenas demarcadas.", correct: true },
+              { text: "Padrão: o desmatamento ocorre no centro das reservas protegidas, ignorando completamente as estradas.", correct: false },
+              { text: "Quantificar: 100% da Amazônia já foi completamente desmatada segundo o mapa.", correct: false },
+              { text: "Exceção: não há nenhuma relação entre vias de transporte e ocupação da terra.", correct: false }
+            ],
+            explanation: "O cruzamento espacial comprova a correlação de proximidade: as estradas induzem ramificações vicinais (padrão em espinha de peixe), enquanto as UCs e TIs atuam como barreira territorial (exceção espacial)."
+          },
+          {
+            phase: 3,
+            phaseName: "3. Interpretação (Causalidade e Dinâmica de Fronteira)",
+            title: "Síntese Socioeconômica e Logística",
+            context: "Como a ciência geográfica explica a dinâmica revelada por este mapa temático?",
+            options: [
+              { text: "A infraestrutura de transporte viabiliza o avanço da fronteira agropecuária e da grilagem ao reduzir os custos de frete para exportação, evidenciando o papel do Estado na reestruturação do território.", correct: true },
+              { text: "O fenômeno ocorre porque as árvores próximas às rodovias morrem espontaneamente devido à poeira.", correct: false },
+              { text: "O desmatamento na região é impulsionado exclusivamente pelo turismo ecológico internacional.", correct: false },
+              { text: "As rodovias foram construídas para proteger a floresta densa contra predadores naturais.", correct: false }
+            ],
+            explanation: "A interpretação atinge a complexidade máxima ao conectar a linha no mapa à geopolítica de integração nacional, avanço do agronegócio e geopolítica da conservação da biodiversidade."
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: "Caso 3: Vulnerabilidade e Transição Demográfica Urbana",
+        center: [-23.55, -46.63],
+        zoom: 10,
+        legendHtml: `
+          <b>Índice de Vulnerabilidade Social (IVS)</b><br>
+          <span style="display:inline-block;width:12px;height:12px;background:#7f1d1d;margin-right:4px;"></span> IVS Muito Alto (Periferias profundas)<br>
+          <span style="display:inline-block;width:12px;height:12px;background:#3b82f6;margin-right:4px;"></span> IVS Baixo (Centro Expandido / Eixo Sudoeste)<br>
+          <div style="border-top:1px solid #475569;margin:4px 0;"></div>
+          <span style="display:inline-block;width:14px;height:3px;background:#eab308;margin-right:4px;"></span> Linhas de Metrô e Alta Capacidade
+        `,
+        layers: [
+          {
+            type: "polygon",
+            coords: [
+              [-23.53, -46.68], [-23.52, -46.62], [-23.58, -46.61], [-23.60, -46.70]
+            ],
+            color: "#3b82f6",
+            fillOpacity: 0.6,
+            popup: "<b>Centro Expandido / Eixo Sudoeste:</b> Alta renda, infraestrutura plena e IVS Baixo"
+          },
+          {
+            type: "polygon",
+            coords: [
+              [-23.65, -46.75], [-23.70, -46.60], [-23.75, -46.72], [-23.70, -46.82]
+            ],
+            color: "#7f1d1d",
+            fillOpacity: 0.7,
+            popup: "<b>Extremo Sul (Mananciais):</b> IVS Muito Alto, precariedade de saneamento e transporte"
+          },
+          {
+            type: "polygon",
+            coords: [
+              [-23.50, -46.45], [-23.55, -46.38], [-23.62, -46.42], [-23.58, -46.50]
+            ],
+            color: "#7f1d1d",
+            fillOpacity: 0.7,
+            popup: "<b>Extremo Leste:</b> Alta densidade populacional com déficit de empregos formais"
+          },
+          {
+            type: "polyline",
+            coords: [
+              [-23.52, -46.65], [-23.56, -46.64], [-23.60, -46.68]
+            ],
+            color: "#eab308",
+            weight: 4,
+            popup: "<b>Rede Estrutural de Transporte Sobre Trilhos</b>"
+          }
+        ],
+        steps: [
+          {
+            phase: 1,
+            phaseName: "1. Leitura (Decodificação Gráfica)",
+            title: "Leitura de Polaridades Espaciais",
+            context: "Que informação básica a combinação das cores azul e vermelho escuro comunica no mapa de vulnerabilidade?",
+            options: [
+              { text: "Diferenciação qualitativa entre florestas nativas e áreas plantadas.", correct: false },
+              { text: "Bipolaridade socioespacial: o contraste entre áreas com excelente infraestrutura urbana (azul) e áreas de alta privação de serviços básicos (vermelho).", correct: true },
+              { text: "Variação de temperatura atmosférica superficial sem relação com a sociedade.", correct: false },
+              { text: "Indicação de zonas industriais versus zonas exclusivamente comerciais.", correct: false }
+            ],
+            explanation: "A leitura primária decifra a escala cromática divergente associada a indicadores de exclusão e inclusão social no espaço intraurbano."
+          },
+          {
+            phase: 2,
+            phaseName: "2. Análise (Método PQE)",
+            title: "Padrão Centro-Periferia e Oferta de Mobilidade",
+            context: "Ao cruzar a mancha do IVS com as linhas de metrô (amarelas), o que a análise espacial constata?",
+            options: [
+              { text: "Padrão centro-periferia: a rede de transporte de alta capacidade se restringe às áreas de baixo IVS, enquanto as periferias com alto IVS dependem de modais precários e longos deslocamentos pendulares.", correct: true },
+              { text: "As linhas de alta capacidade atendem homogeneamente todos os bairros da metrópole sem qualquer distinção de renda.", correct: false },
+              { text: "As áreas de maior vulnerabilidade concentram o maior número de estações de transporte público e empregos formais.", correct: false },
+              { text: "Não há nenhuma correlação observável entre investimentos públicos em transporte e a distribuição socioeconômica.", correct: false }
+            ],
+            explanation: "A análise sobrepõe vetores de mobilidade e índices sociais, evidenciando que a infraestrutura se concentra onde a vulnerabilidade já é menor."
+          },
+          {
+            phase: 3,
+            phaseName: "3. Interpretação (Causalidade e Segregação Socioespacial)",
+            title: "Síntese do Espaço Intraurbano e Cidadania",
+            context: "Qual processo geográfico explica as disparidades reveladas nesta representação?",
+            options: [
+              { text: "A segregação socioespacial produzida pelo mercado imobiliário e pelo investimento público seletivo, que valoriza o solo central e empurra as populações de menor renda para periferias desprovidas de serviços.", correct: true },
+              { text: "A escolha voluntária dos cidadãos de menor renda em morar distantes dos seus locais de trabalho por preferência climática.", correct: false },
+              { text: "Um padrão meramente aleatório e sem qualquer relação com a economia urbana ou o papel do Estado.", correct: false },
+              { text: "A influência exclusiva de fatores topográficos que impediram a construção de moradias no centro urbano.", correct: false }
+            ],
+            explanation: "A interpretação encerra o estudo conectando o diagnóstico cartográfico às teorias críticas de produção social do espaço urbano e segregação residencial."
+          }
+        ]
+      }
+    ];
+
+    let currentCaseIdx = 0;
+    let currentStepIdx = 0;
+    let map = null;
+    let currentLayersGroup = null;
+    let legendControl = null;
+    let selectedOptionIndex = null;
+
+    function initMap() {
+      map = L.map('caseMap', {
+        center: casesData[0].center,
+        zoom: casesData[0].zoom,
+        minZoom: 4,
+        maxZoom: 16
+      });
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap &copy; CARTO',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(map);
+
+      currentLayersGroup = L.featureGroup().addTo(map);
+      loadCase(0);
+    }
+
+    function loadCase(caseIdx) {
+      currentCaseIdx = caseIdx;
+      currentStepIdx = 0;
+      selectedOptionIndex = null;
+
+      const c = casesData[currentCaseIdx];
+      document.getElementById('caseTitle').innerText = c.title;
+      document.getElementById('caseSelector').value = caseIdx;
+
+      // Atualiza Camadas no Mapa
+      currentLayersGroup.clearLayers();
+      c.layers.forEach(l => {
+        if (l.type === 'polygon') {
+          const poly = L.polygon(l.coords, {
+            color: l.color,
+            fillColor: l.color,
+            fillOpacity: l.fillOpacity,
+            weight: 2
+          }).bindPopup(l.popup);
+          currentLayersGroup.addLayer(poly);
+        } else if (l.type === 'polyline') {
+          const line = L.polyline(l.coords, {
+            color: l.color,
+            weight: l.weight
+          }).bindPopup(l.popup);
+          currentLayersGroup.addLayer(line);
+        }
+      });
+
+      // Atualiza Legenda Dinâmica no Mapa
+      if (legendControl) {
+        map.removeControl(legendControl);
+      }
+      legendControl = L.control({ position: 'bottomright' });
+      legendControl.onAdd = function() {
+        const div = L.DomUtil.create('div', 'custom-legend');
+        div.innerHTML = c.legendHtml;
+        return div;
+      };
+      legendControl.addTo(map);
+
+      map.setView(c.center, c.zoom);
+      setTimeout(() => map.invalidateSize(), 200);
+
+      renderCurrentStep();
+    }
+
+    function renderCurrentStep() {
+      const c = casesData[currentCaseIdx];
+      const s = c.steps[currentStepIdx];
+      selectedOptionIndex = null;
+
+      // Abas de Fase
+      for (let i = 1; i <= 3; i++) {
+        const tab = document.getElementById(`stepTab${i}`);
+        if (i === s.phase) {
+          tab.className = "py-1.5 rounded bg-sky-600 text-white font-bold transition-all shadow";
+        } else if (i < s.phase) {
+          tab.className = "py-1.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700/60 font-bold";
+        } else {
+          tab.className = "py-1.5 rounded bg-slate-900 text-slate-500";
+        }
+      }
+
+      document.getElementById('stepBadge').innerText = s.phaseName;
+      document.getElementById('stepQuestionTitle').innerText = s.title;
+      document.getElementById('stepContext').innerText = s.context;
+
+      // Opções
+      const container = document.getElementById('optionsContainer');
+      container.innerHTML = '';
+      s.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.id = `optBtn_${idx}`;
+        btn.onclick = () => selectOption(idx);
+        btn.className = 'w-full text-left p-3 rounded-lg bg-slate-900/90 border border-slate-750 text-slate-200 text-xs hover:border-sky-500 hover:bg-slate-850 transition-all flex items-start gap-2.5';
+        btn.innerHTML = `
+          <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-800 text-slate-400 text-[10px] font-bold shrink-0 mt-0.5 border border-slate-700">
+            ${String.fromCharCode(65 + idx)}
+          </span>
+          <span class="leading-relaxed">${opt.text}</span>
+        `;
+        container.appendChild(btn);
+      });
+
+      // Reseta botões e feedback
+      const fb = document.getElementById('stepFeedback');
+      fb.classList.add('hidden');
+      document.getElementById('btnConfirmStep').classList.remove('hidden');
+      document.getElementById('btnNextStep').classList.add('hidden');
+    }
+
+    function selectOption(idx) {
+      selectedOptionIndex = idx;
+      const c = casesData[currentCaseIdx];
+      const s = c.steps[currentStepIdx];
+      
+      for (let i = 0; i < s.options.length; i++) {
+        const b = document.getElementById(`optBtn_${i}`);
+        if (i === idx) {
+          b.className = 'w-full text-left p-3 rounded-lg bg-sky-950/70 border border-sky-400 text-sky-100 text-xs transition-all shadow-md flex items-start gap-2.5 ring-1 ring-sky-400/50';
+        } else {
+          b.className = 'w-full text-left p-3 rounded-lg bg-slate-900/90 border border-slate-750 text-slate-300 text-xs hover:border-slate-600 transition-all flex items-start gap-2.5 opacity-80';
+        }
+      }
+    }
+
+    function validateCurrentStep() {
+      if (selectedOptionIndex === null) {
+        alert("Por favor, selecione uma das alternativas antes de validar!");
+        return;
+      }
+
+      const c = casesData[currentCaseIdx];
+      const s = c.steps[currentStepIdx];
+      const chosen = s.options[selectedOptionIndex];
+      const fb = document.getElementById('stepFeedback');
+      fb.classList.remove('hidden');
+
+      if (chosen.correct) {
+        fb.className = 'p-3 rounded-lg text-xs leading-relaxed border bg-emerald-950/90 border-emerald-500/60 text-emerald-200 shadow-md space-y-1';
+        fb.innerHTML = `
+          <div class="font-bold flex items-center gap-1.5 text-emerald-300">
+            <i class="fa-solid fa-circle-check text-emerald-400"></i> Etapa Validada com Sucesso!
+          </div>
+          <div>${s.explanation}</div>
+        `;
+
+        document.getElementById('btnConfirmStep').classList.add('hidden');
+        document.getElementById('btnNextStep').classList.remove('hidden');
+        document.getElementById('btnNextStep').classList.add('flex');
+        document.getElementById('btnNextStep').focus();
+      } else {
+        fb.className = 'p-3 rounded-lg text-xs leading-relaxed border bg-rose-950/90 border-rose-500/60 text-rose-200 shadow-md space-y-1';
+        fb.innerHTML = `
+          <div class="font-bold flex items-center gap-1.5 text-rose-300">
+            <i class="fa-solid fa-circle-xmark text-rose-400"></i> Conclusão Cartográfica Imprecisa!
+          </div>
+          <div>Retorne ao mapa, examine a legenda e as feições espaciais com atenção antes de tentar novamente.</div>
+        `;
+      }
+    }
+
+    function nextStep() {
+      const c = casesData[currentCaseIdx];
+      if (currentStepIdx < c.steps.length - 1) {
+        currentStepIdx++;
+        renderCurrentStep();
+      } else {
+        alert(`Parabéns! Você completou os 3 níveis cognitivos (Leitura, Análise e Interpretação) para o ${c.title}!`);
+        // Alterna para o próximo caso se existir
+        if (currentCaseIdx < casesData.length - 1) {
+          loadCase(currentCaseIdx + 1);
+        } else {
+          loadCase(0);
+        }
+      }
+    }
+
+    function changeCase(idx) {
+      loadCase(idx);
+    }
+
+    function switchMode(mode) {
+      const tutSec = document.getElementById('tutorialSection');
+      const pracSec = document.getElementById('practiceSection');
+      const tutBtn = document.getElementById('tabTutorialBtn');
+      const pracBtn = document.getElementById('tabPracticeBtn');
+
+      if (mode === 'tutorial') {
+        tutSec.classList.remove('hidden');
+        pracSec.classList.add('hidden');
+        tutBtn.className = 'px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all bg-sky-600 text-white shadow-md flex items-center gap-2';
+        pracBtn.className = 'px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-700 flex items-center gap-2';
+      } else {
+        tutSec.classList.add('hidden');
+        pracSec.classList.remove('hidden');
+        pracBtn.className = 'px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all bg-sky-600 text-white shadow-md flex items-center gap-2';
+        tutBtn.className = 'px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-700 flex items-center gap-2';
+        setTimeout(() => {
+          if (map) map.invalidateSize();
+        }, 200);
+      }
+    }
+
+    window.onload = () => {
+      initMap();
+    };
+  </script>
+</body>
+</html>
