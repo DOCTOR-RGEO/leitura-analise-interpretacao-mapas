@@ -55,7 +55,7 @@
       Decodificação & Raciocínio Geográfico
     </h1>
     <p class="text-slate-400 text-xs sm:text-sm mt-1">
-      Trilha prática: da decodificação gráfica à síntese interpretativa do espaço.
+      Trilha baseada nos níveis de leitura cartográfica de Ormeling: Elementar, Intermediário e Geral.
     </p>
   </header>
 
@@ -68,7 +68,7 @@
         id="tabTutorialBtn" 
         onclick="switchMode('tutorial')" 
         class="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all bg-sky-600 text-white shadow-md flex items-center gap-2">
-        <i class="fa-solid fa-graduation-cap"></i> 1. Trilha Conceitual
+        <i class="fa-solid fa-graduation-cap"></i> 1. Metodologia de Ormeling
       </button>
       <button 
         id="tabPracticeBtn" 
@@ -81,66 +81,41 @@
     <!-- SEÇÃO 1: TUTORIAL TEÓRICO E METODOLÓGICO -->
     <div id="tutorialSection" class="space-y-4">
       
-      <!-- Introdução Conceitual -->
+      <!-- Introdução Metodológica -->
       <div class="bg-slate-950/80 border border-slate-750 p-4 rounded-xl">
         <h2 class="text-base font-bold text-sky-300 flex items-center gap-2">
-          <i class="fa-solid fa-book-open"></i> O que é ler, analisar e interpretar um mapa?
+          <i class="fa-solid fa-book-open"></i> A Metodologia de Leitura e Percepção de Ormeling
         </h2>
         <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
-          Ler um mapa é equivalente a ler um texto, substituindo a palavra escrita por <strong>signos gráficos, cores, proporções e posições espaciais</strong>. Essa operação se estrutura em três níveis sucessivos e interdependentes:
+          Segundo a abordagem cartográfica de <strong>Ormeling & Kraak</strong>, a extração de conhecimento a partir de um mapa temático não ocorre de maneira aleatória, mas por meio de <strong>três níveis sucessivos de interrogação visual</strong>:
         </p>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
           <div class="bg-slate-900 border border-sky-500/30 p-3 rounded-lg">
             <span class="text-sky-400 font-extrabold text-xs uppercase tracking-wider block mb-1">
-              <i class="fa-solid fa-eye"></i> 1. Leitura
+              <i class="fa-solid fa-location-dot"></i> 1. Nível Elementar
             </span>
-            <p class="text-xs text-slate-300">
-              Decodificação dos elementos visuais elementares: título, legenda, escala matemática, orientação e sistema de projeção.
+            <p class="text-xs text-slate-300 leading-relaxed">
+              <strong>Leitura Direta:</strong> Responde à pergunta <em>"O que está aqui?"</em> ou <em>"Onde está este elemento?"</em>. Foco em símbolos isolados, leitura de legenda e identificação pontual.
             </p>
           </div>
 
           <div class="bg-slate-900 border border-teal-500/30 p-3 rounded-lg">
             <span class="text-teal-400 font-extrabold text-xs uppercase tracking-wider block mb-1">
-              <i class="fa-solid fa-chart-pie"></i> 2. Análise
+              <i class="fa-solid fa-diagram-project"></i> 2. Nível Intermediário
             </span>
-            <p class="text-xs text-slate-300">
-              Identificação de padrões geométricos, zonas de concentração, dispersão, eixos de fluxo e contraste regional.
+            <p class="text-xs text-slate-300 leading-relaxed">
+              <strong>Análise Espacial:</strong> Responde a <em>"Como os fenômenos se relacionam?"</em>. Foco em comparações regionais, gradientes, zonas de contiguidade e eixos de conexão.
             </p>
           </div>
 
           <div class="bg-slate-900 border border-indigo-500/30 p-3 rounded-lg">
             <span class="text-indigo-400 font-extrabold text-xs uppercase tracking-wider block mb-1">
-              <i class="fa-solid fa-brain"></i> 3. Interpretação
+              <i class="fa-solid fa-brain"></i> 3. Nível Geral
             </span>
-            <p class="text-xs text-slate-300">
-              Explicação dos <em>porquês</em>: correlação dos dados espaciais com o contexto histórico, ambiental e socioeconômico.
+            <p class="text-xs text-slate-300 leading-relaxed">
+              <strong>Interpretação e Síntese:</strong> Responde a <em>"Qual é a estrutura global e por que ela existe?"</em>. Integra o mapa ao contexto socioeconômico, histórico e ambiental do espaço geográfico.
             </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- O Método PQE -->
-      <div class="bg-gradient-to-r from-slate-950 to-slate-900 border border-amber-500/30 p-4 rounded-xl">
-        <h3 class="text-xs sm:text-sm font-bold text-amber-300 uppercase tracking-wide flex items-center gap-2">
-          <i class="fa-solid fa-compass-drafting"></i> Instrumento Metodológico: O Método PQE
-        </h3>
-        <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
-          Para realizar uma análise rigorosa sem cometer conclusões precipitadas, utilize o roteiro sequencial em três passos:
-        </p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mt-3 text-xs">
-          <div class="p-2.5 bg-slate-900/90 rounded border border-slate-700">
-            <b class="text-amber-400 text-sm block">P &mdash; Padrão</b>
-            <span class="text-slate-300">Qual é a regra geral de distribuição visualizada no mapa? Há concentração em um vetor geográfico específico?</span>
-          </div>
-          <div class="p-2.5 bg-slate-900/90 rounded border border-slate-700">
-            <b class="text-amber-400 text-sm block">Q &mdash; Quantificar</b>
-            <span class="text-slate-300">Quais valores, classes ou percentuais métricos definem essa distribuição? Não basta dizer "muito" ou "pouco".</span>
-          </div>
-          <div class="p-2.5 bg-slate-900/90 rounded border border-slate-700">
-            <b class="text-amber-400 text-sm block">E &mdash; Exceções</b>
-            <span class="text-slate-300">Existe alguma localidade ou feição que contraria a regra geral (uma anomalia ou mancha divergente)?</span>
           </div>
         </div>
       </div>
@@ -148,32 +123,28 @@
       <!-- Checklist Cartográfico Interativo -->
       <div class="bg-slate-950/70 border border-slate-700 p-4 rounded-xl">
         <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wide mb-3 flex items-center gap-2">
-          <i class="fa-solid fa-list-check text-sky-400"></i> Checklist do Leitor de Mapas
+          <i class="fa-solid fa-list-check text-sky-400"></i> Checklist dos Procedimentos de Leitura, Análise e Interpretação
         </h3>
 
         <div class="space-y-2 text-xs">
           <label class="flex items-start gap-2.5 p-2 bg-slate-900/60 rounded border border-slate-800 hover:border-slate-700 cursor-pointer">
             <input type="checkbox" class="mt-0.5 rounded text-sky-500 focus:ring-0 bg-slate-950 border-slate-600" />
-            <span><strong>Título e Data:</strong> Identifiquei claramente o tema, o recorte geográfico e o ano dos dados levantados?</span>
+            <span><strong>Nível Elementar (Leitura):</strong> Identifiquei o tema no título, decodifiquei a legenda, a escala numérica/gráfica e a orientação?</span>
           </label>
           <label class="flex items-start gap-2.5 p-2 bg-slate-900/60 rounded border border-slate-800 hover:border-slate-700 cursor-pointer">
             <input type="checkbox" class="mt-0.5 rounded text-sky-500 focus:ring-0 bg-slate-950 border-slate-600" />
-            <span><strong>Variáveis Visuais da Legenda:</strong> O mapa usa ordenação por gradação de cor (coroplético), símbolos proporcionais ou feições lineares?</span>
+            <span><strong>Nível Intermediário (Análise):</strong> Relacionei diferentes classes da legenda, identificando zonas de concentração, vazios espaciais e eixos de fluxo?</span>
           </label>
           <label class="flex items-start gap-2.5 p-2 bg-slate-900/60 rounded border border-slate-800 hover:border-slate-700 cursor-pointer">
             <input type="checkbox" class="mt-0.5 rounded text-sky-500 focus:ring-0 bg-slate-950 border-slate-600" />
-            <span><strong>Escala e Proporção:</strong> O nível de detalhe é local, regional, nacional ou planetário?</span>
-          </label>
-          <label class="flex items-start gap-2.5 p-2 bg-slate-900/60 rounded border border-slate-800 hover:border-slate-700 cursor-pointer">
-            <input type="checkbox" class="mt-0.5 rounded text-sky-500 focus:ring-0 bg-slate-950 border-slate-600" />
-            <span><strong>Causalidade Espacial:</strong> Consigo explicar as causas físicas, ambientais ou políticas que condicionaram a distribuição vista?</span>
+            <span><strong>Nível Geral (Interpretação):</strong> Consigo sintetizar a totalidade do mapa e explicar as causas históricas, físicas e sociais que estruturam a distribuição espacial?</span>
           </label>
         </div>
 
         <button 
           onclick="switchMode('practice')" 
           class="w-full mt-4 py-2.5 px-4 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs sm:text-sm rounded-lg transition shadow-md shadow-sky-500/20 flex items-center justify-center gap-2">
-          Ir para os Casos Práticos de Estudo <i class="fa-solid fa-arrow-right"></i>
+          Iniciar Casos Práticos de Estudo <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
 
@@ -192,9 +163,9 @@
         <div class="flex items-center gap-2">
           <span class="text-xs text-slate-400 font-medium">Caso:</span>
           <select id="caseSelector" onchange="changeCase(parseInt(this.value))" class="bg-slate-900 border border-slate-600 text-xs rounded-lg p-1.5 text-slate-200 focus:ring-1 focus:ring-sky-400">
-            <option value="0">Caso 1: Relevo vs. Densidade Urbana</option>
-            <option value="1">Caso 2: Fronteira Agrícola e Eixos Viários</option>
-            <option value="2">Caso 3: Vulnerabilidade e Transição Demográfica</option>
+            <option value="0">Caso 1: Relevo vs. Densidade Urbana (Sergipe)</option>
+            <option value="1">Caso 2: Fronteira Agrícola e Eixos Viários (Amazônia)</option>
+            <option value="2">Caso 3: Vulnerabilidade e Transição Urbana</option>
           </select>
         </div>
       </div>
@@ -204,11 +175,11 @@
         <div id="caseMap"></div>
       </div>
 
-      <!-- Barra das 3 Fases Cognitivas -->
+      <!-- Barra dos 3 Níveis de Ormeling -->
       <div class="grid grid-cols-3 gap-1.5 bg-slate-950 p-1.5 rounded-lg border border-slate-700 text-center text-xs font-bold">
-        <div id="stepTab1" class="py-1.5 rounded bg-sky-600 text-white transition-all">1. Leitura</div>
-        <div id="stepTab2" class="py-1.5 rounded bg-slate-900 text-slate-400 transition-all">2. Análise (PQE)</div>
-        <div id="stepTab3" class="py-1.5 rounded bg-slate-900 text-slate-400 transition-all">3. Interpretação</div>
+        <div id="stepTab1" class="py-1.5 rounded bg-sky-600 text-white transition-all">1. Nível Elementar (Leitura)</div>
+        <div id="stepTab2" class="py-1.5 rounded bg-slate-900 text-slate-400 transition-all">2. Nível Intermediário (Análise)</div>
+        <div id="stepTab3" class="py-1.5 rounded bg-slate-900 text-slate-400 transition-all">3. Nível Geral (Interpretação)</div>
       </div>
 
       <!-- Painel de Desafio da Fase Atual -->
@@ -217,16 +188,14 @@
         <!-- Enunciado e Orientação Cartográfica -->
         <div>
           <span id="stepBadge" class="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-700/50">
-            Etapa 1: Decodificação Gráfica
+            Nível 1: Leitura Elementar
           </span>
           <h3 id="stepQuestionTitle" class="text-sm font-bold text-white mt-1.5">--</h3>
           <p id="stepContext" class="text-xs text-slate-300 mt-1 leading-relaxed">--</p>
         </div>
 
         <!-- Opções de Resposta -->
-        <div id="optionsContainer" class="space-y-2 pt-1">
-          <!-- Gerado dinamicamente -->
-        </div>
+        <div id="optionsContainer" class="space-y-2 pt-1"></div>
 
         <!-- Feedback de Validação -->
         <div id="stepFeedback" class="hidden p-3 rounded-lg text-xs leading-relaxed border space-y-1"></div>
@@ -244,7 +213,7 @@
             id="btnNextStep" 
             onclick="nextStep()" 
             class="w-full py-2.5 px-4 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs sm:text-sm rounded-lg transition shadow-md shadow-sky-500/20 hidden items-center justify-center gap-2">
-            Avançar no Raciocínio Geográfico <i class="fa-solid fa-arrow-right"></i>
+            Avançar no Nível de Percepção <i class="fa-solid fa-arrow-right"></i>
           </button>
         </div>
 
@@ -257,11 +226,10 @@
   <!-- Rodapé Institucional -->
   <footer class="w-full max-w-3xl text-center my-3 text-[11px] text-slate-400 space-y-1">
     <div>Laboratório de Representação da Terra &bull; Departamento de Geografia da UFS</div>
-    <div class="text-slate-500">Recurso de apoio pedagógico ao ensino de Cartografia Temática e Análise Espacial.</div>
+    <div class="text-slate-500">Metodologia de Ensino de Cartografia Temática &bull; Ormeling & Kraak</div>
   </footer>
 
   <script>
-    // Base de Casos Didáticos Estruturados estritamente em Leitura, Análise (PQE) e Interpretação
     const casesData = [
       {
         id: 0,
@@ -302,7 +270,7 @@
             ],
             color: "#10b981",
             fillOpacity: 0.5,
-            popup: "<b>Alto Sertão / Depressão do São Francisco:</b> &lt; 25 hab/km² (Vazio relativo)"
+            popup: "<b>Alto Sertão / Depressão do São Francisco:</b> &lt; 25 hab/km²"
           },
           {
             type: "polyline",
@@ -311,54 +279,54 @@
             ],
             color: "#38bdf8",
             weight: 3,
-            popup: "<b>Baixo Rio São Francisco:</b> Vetor histórico de drenagem e integração"
+            popup: "<b>Baixo Rio São Francisco:</b> Vetor hidrográfico de drenagem e integração"
           }
         ],
         steps: [
           {
             phase: 1,
-            phaseName: "1. Leitura (Decodificação Gráfica)",
-            title: "Identificação da Variável Visual e Natureza da Representação",
-            context: "Examine a legenda do mapa temático acima. Que tipo de mapa temático está sendo empregado e qual variável gráfica traduz a intensidade do fenômeno?",
+            phaseName: "1. Nível Elementar (Leitura / Ormeling)",
+            title: "Identificação Pontual e Decodificação de Signos",
+            context: "No nível elementar de Ormeling ('O que está aqui?'), examine a legenda e as feições isoladas. Qual método de representação cartográfica é utilizado para traduzir a densidade demográfica?",
             options: [
-              { text: "Mapa de Fluxos Dinâmicos, utilizando vetores direcionais proporcionais à velocidade.", correct: false },
-              { text: "Mapa Coroplético, utilizando a variável visual de valor/tonalidade (gradação de cor) para representar classes quantitativas ordenadas.", correct: true },
-              { text: "Mapa Isarítmico, baseado estritamente em curvas de nível altimétricas contínuas.", correct: false },
-              { text: "Cartograma Anamórfico, onde a área geográfica de cada município é deformada proporcionalmente ao PIB.", correct: false }
+              { text: "Mapa Coroplético, no qual áreas administrativas recebem valores ordenados por meio de uma gradação de tonalidades cromáticas.", correct: true },
+              { text: "Cartograma Anamórfico com distorção geométrica de polígonos municipais.", correct: false },
+              { text: "Mapa Isarítmico contínuo composto estritamente por curvas de nível topográficas.", correct: false },
+              { text: "Mapa de Símbolos Pontuais Proporcionais em escala absoluta.", correct: false }
             ],
-            explanation: "O mapa utiliza áreas zonais coloridas segundo uma hierarquia de valor/intensidade (mapa coroplético), comunicando intervalos quantitativos ordenados de habitantes por quilômetro quadrado."
+            explanation: "No nível elementar, identifica-se que as unidades espaciais foram preenchidas por classes coropléticas de valor e intensidade visual."
           },
           {
             phase: 2,
-            phaseName: "2. Análise (Método PQE: Padrão, Quantificar, Exceção)",
-            title: "Estruturação dos Padrões e Disparidades Regionais",
-            context: "Aplicando o método PQE (Padrão, Quantificar e Exceções), qual alternativa sintetiza com precisão os dados espaciais?",
+            phaseName: "2. Nível Intermediário (Análise Espacial / Ormeling)",
+            title: "Comparação de Grupos e Relações de Vizinhança",
+            context: "No nível intermediário de Ormeling ('Como os grupos espaciais se relacionam?'), qual relação espacial se evidencia entre as porções leste, central e oeste do estado?",
             options: [
-              { text: "O fenômeno é perfeitamente homogêneo e distribuído de forma equitativa em toda a malha estadual.", correct: false },
-              { text: "Padrão: forte concentração no litoral/leste; Quantificar: manchas vermelhas superando 1.500 hab/km² versus o interior com &lt;50 hab/km²; Exceção: núcleos de média densidade (amarelos) no Agreste Central (ex: Itabaiana).", correct: true },
-              { text: "Padrão: maior ocupação demográfica na porção semiárida do Alto Sertão Sergipano.", correct: false },
-              { text: "Exceção: o litoral sergipano constitui a principal área desabitada do estado.", correct: false }
+              { text: "Há um gradiente espacial contínuo de decréscimo demográfico do litoral em direção ao semiárido, com a presença de um núcleo intermediário denso polarizado pelo Agreste Central.", correct: true },
+              { text: "A distribuição é inteiramente uniforme, inexistindo contrastes entre a faixa litorânea e a depressão sertaneja.", correct: false },
+              { text: "O Alto Sertão concentra os maiores índices de ocupação urbana em relação à faixa leste.", correct: false },
+              { text: "As áreas de maior densidade populacional situam-se isoladas nos vales secos do extremo oeste sergipano.", correct: false }
             ],
-            explanation: "O método PQE isola: Padrão (orientação leste-oeste de decrescimento demográfico), Quantificação (>1.500 no litoral vs <50 hab/km² no sertão) e a Exceção/Anomalia do Agreste Central com alta polarização mercantil."
+            explanation: "O nível intermediário analisa conjuntos de dados contíguos: a relação entre o adensamento leste, a transição no agreste e os vazios relativos no sertão."
           },
           {
             phase: 3,
-            phaseName: "3. Interpretação (Causalidade e Síntese Geográfica)",
-            title: "Explicação dos 'Porquês' e Síntese Real",
-            context: "Por que essa configuração espacial se consolidou historicamente e ambientalmente em Sergipe?",
+            phaseName: "3. Nível Geral (Interpretação e Síntese / Ormeling)",
+            title: "Compreensão da Estrutura Global e Causalidade",
+            context: "No nível geral de Ormeling ('Qual a estrutura global e quais suas causas?'), como a ciência geográfica explica a gênese dessa organização socioespacial?",
             options: [
-              { text: "A concentração litorânea decorre do processo histórico de ocupação mercantil e urbanização litorânea aliada à disponibilidade hídrica da Zona da Mata, enquanto o interior enfrentou limitações de semiaridez e dispersão pecuária extensiva.", correct: true },
-              { text: "A densidade litorânea decorre exclusivamente da proibição governamental de povoamento no interior do estado.", correct: false },
-              { text: "A ocupação foi homogênea e recente, sem qualquer relação com a geomorfologia ou com ciclos econômicos históricos.", correct: false },
-              { text: "O semiárido apresenta vazios porque sua geologia é imprópria para qualquer tipo de vida humana.", correct: false }
+              { text: "A estrutura sintetiza a histórica concentração de investimentos, redes e atividades agroexportadoras e industriais na Zona da Mata e litoral, condicionada pelo clima subúmido e facilidades portuárias, em contraste com a dispersão pecuária e restrições climáticas do semiárido.", correct: true },
+              { text: "Trata-se de um arranjo recente e acidental, sem qualquer condicionante histórico ou fisiográfico.", correct: false },
+              { text: "A concentração litorânea decorre unicamente de restrições legais ao povoamento da porção ocidental do território.", correct: false },
+              { text: "A aridez sertaneja impossibilita física e quimicamente qualquer forma de fixação populacional.", correct: false }
             ],
-            explanation: "A interpretação fecha o ciclo do raciocínio geográfico ao articular fatores físicos (clima subúmido vs semiárido) e históricos (colonização litorânea e infraestrutura portuária) para explicar as manchas do mapa."
+            explanation: "O nível geral atinge a síntese interpretativa máxima ao articular os dados mapeados aos processos históricos e ambientais de produção do espaço."
           }
         ]
       },
       {
         id: 1,
-        title: "Caso 2: Fronteira Agrícola e Eixos de Transporte na Amazônia",
+        title: "Caso 2: Fronteira Agrícola e Eixos Viários na Amazônia",
         center: [-8.5, -55.0],
         zoom: 6,
         legendHtml: `
@@ -375,7 +343,7 @@
             ],
             color: "#ef4444",
             weight: 4,
-            popup: "<b>Rodovia BR-163 (Cuiabá - Santarém):</b> Principal eixo logístico do agronegócio"
+            popup: "<b>Rodovia BR-163 (Cuiabá - Santarém):</b> Eixo estrutural de escoamento"
           },
           {
             type: "polygon",
@@ -384,7 +352,7 @@
             ],
             color: "#dc2626",
             fillOpacity: 0.6,
-            popup: "<b>Polígono Crítico de Supressão:</b> Efeito 'espinha de peixe' ao longo da rodovia"
+            popup: "<b>Polígono Crítico de Supressão:</b> Efeito de borda adjacente ao eixo"
           },
           {
             type: "polygon",
@@ -393,60 +361,60 @@
             ],
             color: "#059669",
             fillOpacity: 0.5,
-            popup: "<b>Mosaico de Unidades de Conservação e TIs:</b> Barreira de contenção territorial"
+            popup: "<b>Mosaico de Áreas Protegidas e Terras Indígenas:</b> Barreira territorial"
           }
         ],
         steps: [
           {
             phase: 1,
-            phaseName: "1. Leitura (Decodificação Gráfica)",
-            title: "Elementos Lineares e Zonas de Sobreposição",
-            context: "Ao ler os símbolos do mapa, o que a linha vermelha contínua e as áreas adjacentes indicam?",
+            phaseName: "1. Nível Elementar (Leitura / Ormeling)",
+            title: "Decodificação de Geometrias e Significados",
+            context: "No nível elementar, ao identificar a linha vermelha e os polígonos verdes na legenda, o que esses símbolos comunicam pontualmente?",
             options: [
-              { text: "A linha representa uma fronteira internacional e as manchas representam zonas oceânicas.", correct: false },
-              { text: "A linha representa um eixo viário longitudinal (rodovia de transporte) e a mancha vermelha representa áreas antropizadas contíguas à estrada.", correct: true },
-              { text: "A linha indica a rotação de placas tectônicas e as cores denotam atividade vulcânica ativa.", correct: false },
-              { text: "O mapa representa uma bacia puramente hidrográfica sem qualquer intervenção humana.", correct: false }
+              { text: "A linha representa um eixo estrutural de transporte rodoviário e as manchas verdes indicam unidades territoriais com cobertura florestal sob regime de proteção.", correct: true },
+              { text: "A linha indica uma fronteira continental e os polígonos representam áreas marinhas.", correct: false },
+              { text: "A linha demarca uma falha geológica ativa e as manchas verdes representam áreas agrícolas irrigadas.", correct: false },
+              { text: "Trata-se de uma rede puramente hidrográfica sem qualquer implicação socioeconômica.", correct: false }
             ],
-            explanation: "A leitura primária decodifica feições lineares de circulação (eixo rodoviário) e manchas poligonais associadas à pressão de borda."
+            explanation: "O nível elementar garante a correta identificação dos signos gráficos: traçado linear viário e polígonos de reserva florestal."
           },
           {
             phase: 2,
-            phaseName: "2. Análise (Método PQE)",
-            title: "Padrão em 'Espinha de Peixe' e Conexões Espaciais",
-            context: "Qual padrão espacial (P) e exceção (E) são revelados pelo cruzamento dos eixos de fluxo com o desmatamento?",
+            phaseName: "2. Nível Intermediário (Análise Espacial / Ormeling)",
+            title: "Associação de Variáveis e Efeito de Borda",
+            context: "No nível intermediário de Ormeling, ao cruzar o traçado viário com os focos de desmatamento, qual comportamento espacial se destaca?",
             options: [
-              { text: "Padrão: a degradação se concentra nos primeiros 50 km laterais ao eixo da rodovia ('espinha de peixe'); Exceção: a interrupção brusca do desmatamento onde existem Terras Indígenas demarcadas.", correct: true },
-              { text: "Padrão: o desmatamento ocorre no centro das reservas protegidas, ignorando completamente as estradas.", correct: false },
-              { text: "Quantificar: 100% da Amazônia já foi completamente desmatada segundo o mapa.", correct: false },
-              { text: "Exceção: não há nenhuma relação entre vias de transporte e ocupação da terra.", correct: false }
+              { text: "Configura-se uma dependência espacial evidente: a degradação florestal concentra-se ao longo da faixa de influência direta da rodovia, sendo contida bruscamente nos limites das Terras Indígenas demarcadas.", correct: true },
+              { text: "Os focos de desmatamento distribuem-se aleatoriamente pelo interior das florestas contínuas, sem relação com as rodovias.", correct: false },
+              { text: "As Terras Indígenas atuam como os principais polos emissores de desmatamento do mapa.", correct: false },
+              { text: "A rodovia foi implantada exclusivamente em áreas onde a vegetação já havia desaparecido naturalmente.", correct: false }
             ],
-            explanation: "O cruzamento espacial comprova a correlação de proximidade: as estradas induzem ramificações vicinais (padrão em espinha de peixe), enquanto as UCs e TIs atuam como barreira territorial (exceção espacial)."
+            explanation: "No nível intermediário de análise, relacionam-se duas camadas: o vetor de circulação e a geometria do desmatamento contíguo, evidenciando o papel de barreira das TIs."
           },
           {
             phase: 3,
-            phaseName: "3. Interpretação (Causalidade e Dinâmica de Fronteira)",
-            title: "Síntese Socioeconômica e Logística",
-            context: "Como a ciência geográfica explica a dinâmica revelada por este mapa temático?",
+            phaseName: "3. Nível Geral (Interpretação e Síntese / Ormeling)",
+            title: "Estrutura Global da Fronteira Econômica",
+            context: "No nível geral de Ormeling, qual síntese teórica sobre a produção do espaço amazônico este mapa expressa?",
             options: [
-              { text: "A infraestrutura de transporte viabiliza o avanço da fronteira agropecuária e da grilagem ao reduzir os custos de frete para exportação, evidenciando o papel do Estado na reestruturação do território.", correct: true },
-              { text: "O fenômeno ocorre porque as árvores próximas às rodovias morrem espontaneamente devido à poeira.", correct: false },
-              { text: "O desmatamento na região é impulsionado exclusivamente pelo turismo ecológico internacional.", correct: false },
-              { text: "As rodovias foram construídas para proteger a floresta densa contra predadores naturais.", correct: false }
+              { text: "Expressa a dinâmica da fronteira de recursos, onde eixos logísticos construídos pelo Estado viabilizam a valorização da terra e a expansão do agronegócio de exportação, demonstrando que a conservação ambiental depende da consolidação de barreiras institucionais e territoriais de contenção.", correct: true },
+              { text: "Expressa um processo meramente botânico de envelhecimento natural da vegetação nas margens das estradas.", correct: false },
+              { text: "Indica a conversão integral da Amazônia em área urbana densa sem conflitos agrários.", correct: false },
+              { text: "Evidencia que o transporte rodoviário não interfere no uso e ocupação da terra em ambientes tropicais.", correct: false }
             ],
-            explanation: "A interpretação atinge a complexidade máxima ao conectar a linha no mapa à geopolítica de integração nacional, avanço do agronegócio e geopolítica da conservação da biodiversidade."
+            explanation: "O nível geral conclui a interpretação conectando a configuração espacial visível às forças macroeconômicas de apropriação e governança territorial da Amazônia."
           }
         ]
       },
       {
         id: 2,
-        title: "Caso 3: Vulnerabilidade e Transição Demográfica Urbana",
+        title: "Caso 3: Vulnerabilidade e Transição Urbana",
         center: [-23.55, -46.63],
         zoom: 10,
         legendHtml: `
           <b>Índice de Vulnerabilidade Social (IVS)</b><br>
-          <span style="display:inline-block;width:12px;height:12px;background:#7f1d1d;margin-right:4px;"></span> IVS Muito Alto (Periferias profundas)<br>
-          <span style="display:inline-block;width:12px;height:12px;background:#3b82f6;margin-right:4px;"></span> IVS Baixo (Centro Expandido / Eixo Sudoeste)<br>
+          <span style="display:inline-block;width:12px;height:12px;background:#7f1d1d;margin-right:4px;"></span> IVS Muito Alto (Periferias)<br>
+          <span style="display:inline-block;width:12px;height:12px;background:#3b82f6;margin-right:4px;"></span> IVS Baixo (Centro Expandido)<br>
           <div style="border-top:1px solid #475569;margin:4px 0;"></div>
           <span style="display:inline-block;width:14px;height:3px;background:#eab308;margin-right:4px;"></span> Linhas de Metrô e Alta Capacidade
         `,
@@ -458,7 +426,7 @@
             ],
             color: "#3b82f6",
             fillOpacity: 0.6,
-            popup: "<b>Centro Expandido / Eixo Sudoeste:</b> Alta renda, infraestrutura plena e IVS Baixo"
+            popup: "<b>Centro Expandido:</b> Alta renda, infraestrutura plena e IVS Baixo"
           },
           {
             type: "polygon",
@@ -467,7 +435,7 @@
             ],
             color: "#7f1d1d",
             fillOpacity: 0.7,
-            popup: "<b>Extremo Sul (Mananciais):</b> IVS Muito Alto, precariedade de saneamento e transporte"
+            popup: "<b>Extremo Sul:</b> IVS Muito Alto, precariedade em saneamento e transporte"
           },
           {
             type: "polygon",
@@ -476,7 +444,7 @@
             ],
             color: "#7f1d1d",
             fillOpacity: 0.7,
-            popup: "<b>Extremo Leste:</b> Alta densidade populacional com déficit de empregos formais"
+            popup: "<b>Extremo Leste:</b> Densidade periférica com déficit de empregos formais"
           },
           {
             type: "polyline",
@@ -491,42 +459,42 @@
         steps: [
           {
             phase: 1,
-            phaseName: "1. Leitura (Decodificação Gráfica)",
-            title: "Leitura de Polaridades Espaciais",
-            context: "Que informação básica a combinação das cores azul e vermelho escuro comunica no mapa de vulnerabilidade?",
+            phaseName: "1. Nível Elementar (Leitura / Ormeling)",
+            title: "Decodificação de Indicadores Intraurbanos",
+            context: "No nível elementar ('O que está aqui?'), o que representa o contraste cromático entre o azul e o vermelho na mancha intraurbana?",
             options: [
-              { text: "Diferenciação qualitativa entre florestas nativas e áreas plantadas.", correct: false },
-              { text: "Bipolaridade socioespacial: o contraste entre áreas com excelente infraestrutura urbana (azul) e áreas de alta privação de serviços básicos (vermelho).", correct: true },
-              { text: "Variação de temperatura atmosférica superficial sem relação com a sociedade.", correct: false },
-              { text: "Indicação de zonas industriais versus zonas exclusivamente comerciais.", correct: false }
+              { text: "Bipolaridade de condições de vida: áreas com indicadores de bem-estar urbano e baixa privação social (azul) versus áreas de alta precariedade e privação de serviços (vermelho).", correct: true },
+              { text: "Variação de umidade do ar sem relação com a população urbana.", correct: false },
+              { text: "Delimitação entre zonas exclusivamente agrícolas e zonas industriais.", correct: false },
+              { text: "Diferenciação qualitativa entre bacias sedimentares e rochas cristalinas.", correct: false }
             ],
-            explanation: "A leitura primária decifra a escala cromática divergente associada a indicadores de exclusão e inclusão social no espaço intraurbano."
+            explanation: "No nível elementar, faz-se a decodificação imediata do índice temático impresso na legenda do mapa."
           },
           {
             phase: 2,
-            phaseName: "2. Análise (Método PQE)",
-            title: "Padrão Centro-Periferia e Oferta de Mobilidade",
-            context: "Ao cruzar a mancha do IVS com as linhas de metrô (amarelas), o que a análise espacial constata?",
+            phaseName: "2. Nível Intermediário (Análise Espacial / Ormeling)",
+            title: "Sobreposição e Polaridade Espacial",
+            context: "No nível intermediário ('Como os dados se relacionam?'), qual correlação espacial se verifica ao analisar a distribuição das linhas amarelas de metrô em relação às zonas de IVS?",
             options: [
-              { text: "Padrão centro-periferia: a rede de transporte de alta capacidade se restringe às áreas de baixo IVS, enquanto as periferias com alto IVS dependem de modais precários e longos deslocamentos pendulares.", correct: true },
-              { text: "As linhas de alta capacidade atendem homogeneamente todos os bairros da metrópole sem qualquer distinção de renda.", correct: false },
-              { text: "As áreas de maior vulnerabilidade concentram o maior número de estações de transporte público e empregos formais.", correct: false },
-              { text: "Não há nenhuma correlação observável entre investimentos públicos em transporte e a distribuição socioeconômica.", correct: false }
+              { text: "A infraestrutura de transporte de alta capacidade está concentrada de modo desproporcional nas zonas centrais de baixo IVS, enquanto as periferias de alto IVS sofrem desatendimento e dependência de modais mais lentos.", correct: true },
+              { text: "As linhas de alta capacidade atendem prioritariamente as franjas periféricas de alto IVS.", correct: false },
+              { text: "Não se nota qualquer disparidade na distribuição territorial do sistema de transporte de massa.", correct: false },
+              { text: "As áreas de menor vulnerabilidade social prescindem inteiramente de transporte público estruturado.", correct: false }
             ],
-            explanation: "A análise sobrepõe vetores de mobilidade e índices sociais, evidenciando que a infraestrutura se concentra onde a vulnerabilidade já é menor."
+            explanation: "O nível intermediário identifica a não coincidência entre a demanda social periférica e a concentração da infraestrutura viária no centro expandido."
           },
           {
             phase: 3,
-            phaseName: "3. Interpretação (Causalidade e Segregação Socioespacial)",
-            title: "Síntese do Espaço Intraurbano e Cidadania",
-            context: "Qual processo geográfico explica as disparidades reveladas nesta representação?",
+            phaseName: "3. Nível Geral (Interpretação e Síntese / Ormeling)",
+            title: "Síntese da Segregação Socioespacial",
+            context: "No nível geral de Ormeling ('Qual a estrutura global e quais suas causas?'), como a Geografia Urbana sintetiza e explica essa organização metropolitana?",
             options: [
-              { text: "A segregação socioespacial produzida pelo mercado imobiliário e pelo investimento público seletivo, que valoriza o solo central e empurra as populações de menor renda para periferias desprovidas de serviços.", correct: true },
-              { text: "A escolha voluntária dos cidadãos de menor renda em morar distantes dos seus locais de trabalho por preferência climática.", correct: false },
-              { text: "Um padrão meramente aleatório e sem qualquer relação com a economia urbana ou o papel do Estado.", correct: false },
-              { text: "A influência exclusiva de fatores topográficos que impediram a construção de moradias no centro urbano.", correct: false }
+              { text: "Revela a produção histórica da segregação socioespacial, onde o direcionamento seletivo de investimentos públicos consolida o centro expandido como polo de acumulação e valorização do solo, relegando os trabalhadores periféricos a longos deslocamentos pendulares e menor acesso à cidade.", correct: true },
+              { text: "Revela um arranjo casual decorrente de escolhas estéticas individuais dos habitantes de cada bairro.", correct: false },
+              { text: "Explica-se pelo relevo acidentado que impede fisicamente a expansão dos trilhos de transporte para além do centro.", correct: false },
+              { text: "Trata-se de uma dinâmica transitória originada pelo traçado natural dos rios da bacia hidrográfica.", correct: false }
             ],
-            explanation: "A interpretação encerra o estudo conectando o diagnóstico cartográfico às teorias críticas de produção social do espaço urbano e segregação residencial."
+            explanation: "O nível geral conclui o processo correlacionando a leitura cartográfica às categorias geográficas de segregação socioespacial, mobilidade pendular e direito à cidade."
           }
         ]
       }
@@ -566,7 +534,6 @@
       document.getElementById('caseTitle').innerText = c.title;
       document.getElementById('caseSelector').value = caseIdx;
 
-      // Atualiza Camadas no Mapa
       currentLayersGroup.clearLayers();
       c.layers.forEach(l => {
         if (l.type === 'polygon') {
@@ -586,7 +553,6 @@
         }
       });
 
-      // Atualiza Legenda Dinâmica no Mapa
       if (legendControl) {
         map.removeControl(legendControl);
       }
@@ -609,7 +575,6 @@
       const s = c.steps[currentStepIdx];
       selectedOptionIndex = null;
 
-      // Abas de Fase
       for (let i = 1; i <= 3; i++) {
         const tab = document.getElementById(`stepTab${i}`);
         if (i === s.phase) {
@@ -625,7 +590,6 @@
       document.getElementById('stepQuestionTitle').innerText = s.title;
       document.getElementById('stepContext').innerText = s.context;
 
-      // Opções
       const container = document.getElementById('optionsContainer');
       container.innerHTML = '';
       s.options.forEach((opt, idx) => {
@@ -643,7 +607,6 @@
         container.appendChild(btn);
       });
 
-      // Reseta botões e feedback
       const fb = document.getElementById('stepFeedback');
       fb.classList.add('hidden');
       document.getElementById('btnConfirmStep').classList.remove('hidden');
@@ -667,7 +630,7 @@
 
     function validateCurrentStep() {
       if (selectedOptionIndex === null) {
-        alert("Por favor, selecione uma das alternativas antes de validar!");
+        alert("Selecione uma das alternativas antes de validar.");
         return;
       }
 
@@ -681,7 +644,7 @@
         fb.className = 'p-3 rounded-lg text-xs leading-relaxed border bg-emerald-950/90 border-emerald-500/60 text-emerald-200 shadow-md space-y-1';
         fb.innerHTML = `
           <div class="font-bold flex items-center gap-1.5 text-emerald-300">
-            <i class="fa-solid fa-circle-check text-emerald-400"></i> Etapa Validada com Sucesso!
+            <i class="fa-solid fa-circle-check text-emerald-400"></i> Nível Cartográfico Validado com Sucesso!
           </div>
           <div>${s.explanation}</div>
         `;
@@ -691,12 +654,12 @@
         document.getElementById('btnNextStep').classList.add('flex');
         document.getElementById('btnNextStep').focus();
       } else {
-        fb.className = 'p-3 rounded-lg text-xs leading-relaxed border bg-rose-950/90 border-rose-500/60 text-rose-200 shadow-md space-y-1';
+        fb.className = 'p-3 rounded-lg text-xs leading-relaxed border bg-rose-950/90 border-rose-500/50 text-rose-200 shadow-md space-y-1';
         fb.innerHTML = `
           <div class="font-bold flex items-center gap-1.5 text-rose-300">
-            <i class="fa-solid fa-circle-xmark text-rose-400"></i> Conclusão Cartográfica Imprecisa!
+            <i class="fa-solid fa-circle-xmark text-rose-400"></i> Resposta Imprecisa!
           </div>
-          <div>Retorne ao mapa, examine a legenda e as feições espaciais com atenção antes de tentar novamente.</div>
+          <div>Examine as relações espaciais e a legenda do mapa temático com atenção antes de tentar novamente.</div>
         `;
       }
     }
@@ -707,8 +670,7 @@
         currentStepIdx++;
         renderCurrentStep();
       } else {
-        alert(`Parabéns! Você completou os 3 níveis cognitivos (Leitura, Análise e Interpretação) para o ${c.title}!`);
-        // Alterna para o próximo caso se existir
+        alert(`Você completou os 3 níveis de leitura de Ormeling para o ${c.title}.`);
         if (currentCaseIdx < casesData.length - 1) {
           loadCase(currentCaseIdx + 1);
         } else {
